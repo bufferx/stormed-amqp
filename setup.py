@@ -10,7 +10,8 @@ except ImportError:
 
 from stormed.version import __VERSION__
 
-KEYWORDS = ['tornado', 'amqp', 'tornado amqp']
+KEYWORDS = ['tornado', 'mq', 'rabbitmq', 'amqp', 'tornado amqp',
+            'tornado', 'rabbitmq']
 
 DESCRIPTION = ('native tornadoweb amqp 0-9-1 client implementation. '
                'Forked From https://github.com/paolo-losi/stormed-amqp/')
