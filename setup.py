@@ -1,4 +1,6 @@
 import distutils.core
+import os
+import sys
 
 try:
     # to enable "python setup.py develop"
@@ -6,13 +8,48 @@ try:
 except ImportError:
     pass
 
-distutils.core.setup(
-    name="stormed-amqp",
-    version='0.2',
-    packages = ["stormed", "stormed.method", "stormed.method.codegen"],
-    author="Paolo Losi",
-    author_email="paolo.losi@gmail.com",
-    download_url="http://github.com/downloads/paolo-losi/stormed-amqp/stormed-amqp-0.2.tar.gz",
-    license="http://www.opensource.org/licenses/mit-license.html",
-    description="native tornadoweb amqp 0-9-1 client implementation",
-)
+from stormed.version import __VERSION__
+
+KEYWORDS = ['tornado', 'mq', 'rabbitmq', 'amqp', 'tornado amqp',
+            'tornado', 'rabbitmq']
+
+DESCRIPTION = ('native tornadoweb amqp 0-9-1 client implementation. '
+               'Forked From https://github.com/paolo-losi/stormed-amqp/')
+
+
+def _setup():
+    distutils.core.setup(
+        name='toamqp',
+        version=__VERSION__,
+        description=DESCRIPTION,
+        keywords=KEYWORDS,
+        author='ZY ZHANG',
+        author_email='idup2x@gmail.com',
+        url="http://github.com/bufferx/stormed-amqp/",
+        license="http://www.opensource.org/licenses/mit-license.html",
+        packages = ["stormed", "stormed.method", "stormed.method.codegen"],
+        install_requires=['tornado'],
+    )
+
+
+def main():
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'publish':
+            os.system('make publish')
+            sys.exit()
+        elif sys.argv[1] == 'release':
+            if len(sys.argv) < 3:
+                type_ = 'patch'
+            else:
+                type_ = sys.argv[2]
+            assert type_ in ('major', 'minor', 'patch')
+
+            os.system('bumpversion --current-version {} {}'
+                      .format(__VERSION__, type_))
+            sys.exit()
+
+    _setup()
+
+
+if __name__ == '__main__':
+    main()
