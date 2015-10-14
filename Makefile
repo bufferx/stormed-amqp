@@ -15,12 +15,12 @@ publish: clean
 	python setup.py register sdist upload -r pypi
 
 release-major:
-        python setup.py release major
+	python setup.py release major
 
 release-minor:
-        python setup.py release minor
+	python setup.py release minor
 
 release-patch:
-        python setup.py release patch
+	python setup.py release patch
 
 .PHONY : all clean build install publish release-major release-minor release-patch
