@@ -1,4 +1,6 @@
 import distutils.core
+import os
+import sys
 
 try:
     # to enable "python setup.py develop"
